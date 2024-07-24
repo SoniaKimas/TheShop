@@ -1,0 +1,70 @@
+@if(loading){
+<div style="text-align: center;">
+  <app-loading-spinner></app-loading-spinner>
+</div>
+}
+
+@if(error){
+<div style="text-align: center;">
+  <p class="text-danger">{{ error }}</p>
+</div>
+}
+
+@if(!loading && !error){
+
+  <div class="container">
+
+    <div class="card-container">
+      <div class="card" *ngFor="let productWithDiscount of productsWithDiscounts">
+        <div class="image-container">
+          <img [src]="getImageUrl(productWithDiscount.product.imageUrl)" [alt]="productWithDiscount.product.name" class="card-img-top" />
+          <div *ngIf="productWithDiscount.discount && productWithDiscount.discount?.type === 'Direct'" class="discount-overlay">
+            {{ productWithDiscount.discount.percentage }}% OFF
+          </div>
+        </div>
+        <div class="card-body">
+          <h3 class="card-title">{{ productWithDiscount.product.name }}</h3>
+          <p class="card-text">Price: €{{ productWithDiscount.product.price.toFixed(2) }}</p>
+          <div *ngIf="productWithDiscount.discount && productWithDiscount.discount?.type === 'Conditional'" class="conditional-discount-overlay">
+            <span class="card-text">{{ productWithDiscount.discount.percentage }}% OFF</span>
+            <br>
+            <span class="card-text">On buy {{ productWithDiscount.discount.sourceRequiredQuantity}} {{ productWithDiscount.discount.sourceProductId}} </span>
+            <br>
+            <span class="card-text">{{ productWithDiscount.discount.startDate | date:'MMM-dd' | uppercase }} * {{ productWithDiscount.discount.endDate | date:'MMM-dd' | uppercase}}</span>
+          </div>
+          <button class="btn btn-primary" (click)="addToBasket(productWithDiscount)">
+            <i class="fas fa-shopping-cart"></i> Add to Basket
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <form [formGroup]="basketForm" (ngSubmit)="onSubmit()">
+      <h2>Basket</h2>
+      <div class="table-container">
+        <div class="table-header">
+          <div>Product Name</div>
+          <div>Quantity</div>
+          <div>Delete</div>
+        </div>
+        <div
+        formArrayName="basketItems"
+        class="table-body"
+        *ngFor="let item of basketForm.get('basketItems').value;let i = index;trackBy: trackByFn"
+        >
+          <div [formGroupName]="i" class="table-row">
+            <div><input formControlName="productName" readonly></div>
+            <div><input formControlName="quantity" type="number"></div>
+            <div>
+              <button type="button" (click)="deleteItem(i)" class="btn btn-danger btn-sm">
+                <i class="fas fa-trash-alt"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <button type="submit" [disabled]="basketForm.invalid" class="btn btn-success">Submit</button>
+    </form>
+
+  </div>
+}

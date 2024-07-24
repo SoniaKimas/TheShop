@@ -1,0 +1,98 @@
+.table-container {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.table-header, .table-row {
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+}
+
+.table-header {
+  font-weight: bold;
+}
+
+.table-header div, .table-row div {
+  flex: 1;
+  padding: 5px;
+  border: 1px solid #ccc;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.table-body {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.table-row div input {
+  width: 100%;
+  padding: 5px;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+}
+
+.card-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  justify-content: center;
+}
+
+
+.card {
+  flex: 1 1 200px;
+  max-width: 300px;
+  display: flex;
+  flex-direction: column;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  background-color: #f9f9f9;
+  //box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+
+.card-img-top {
+  width: 100%;
+  height: auto;
+}
+
+.card-body {
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  flex-grow: 1;
+}
+
+
+.discount-overlay {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background-color: rgba(4, 182, 4, 0.8);
+  color: #fff;
+  padding: 5px 10px;
+  border-radius: 5px;
+  font-size: 14px;
+  font-weight: bold;
+}
+
+.conditional-discount-overlay {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background-color: rgba(182, 120, 4, 0.8);
+  color: #fff;
+  padding: 5px 10px;
+  border-radius: 5px;
+  font-size: 12px;
+}
+
+.btn {
+  align-self: center;
+}

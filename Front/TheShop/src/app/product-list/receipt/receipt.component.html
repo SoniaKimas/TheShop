@@ -1,0 +1,45 @@
+<div id="receiptModal" aria-labelledby="receiptModalLabel" aria-hidden="true" class="modal-backdrop">
+  <div class="modal-container d-flex align-items-center justify-content-center">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="receiptModalLabel">Receipt</h5>
+        <button type="button" class="btn-close" aria-label="Close" (click)="closeModal()" >×</button>
+      </div>
+      <div class="modal-body">
+        <div *ngIf="receipt">
+          <p><strong>ID:</strong> {{ receipt.id }}</p>
+          <p><strong>Customer Name:</strong> {{ receipt.customerName }}</p>
+          <p><strong>Registration Date:</strong> {{ receipt.registrationDate | date }}</p>
+          <p><strong>Total Price:</strong> {{ receipt.totalPrice | currency: 'EUR':'symbol' }}</p>
+
+          <h3>Items</h3>
+          <table class="table">
+            <thead>
+              <tr>
+                <th>Produc</th>
+                <th>Price</th>
+                <th>Price W/Disc</th>
+                <th>Total Price</th>
+                <th>Quantity</th>
+                <th>Discount</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let item of receipt.items">
+                <td>{{ item.productName }}</td>
+                <td>{{ item.productPrice | currency: 'EUR':'symbol' }}</td>
+                <td>{{ item.priceAfterDiscount | currency: 'EUR':'symbol' }}</td>
+                <td>{{ item.itemTotalPrice | currency: 'EUR':'symbol' }}</td>
+                <td>{{ item.quantity }}</td>
+                <td *ngIf="item.discount !== undefined">{{ item.discount}}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" (click)="closeModal()"  aria-label="Close">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
